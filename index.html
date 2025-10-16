@@ -5,50 +5,46 @@
   <title>Caden Roberts – Resume</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    html, body {
+    :root {
+      color-scheme: light dark;
+    }
+    body {
       margin: 0;
-      height: 100%;
+      background: var(--bg, #f7f9fb);
       font-family: system-ui, sans-serif;
-      background: #f8f9fa;
       display: flex;
       flex-direction: column;
-    }
-    header {
-      text-align: center;
-      padding: 1rem;
-      background: #002f6c;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-    main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
       align-items: center;
+      min-height: 100vh;
     }
-    embed {
-      width: 90%;
-      height: 90vh;
-      border: 1px solid #ccc;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      background: white;
+    h1 {
+      margin: 1rem 0;
+      color: #003366;
+      font-size: 1.8rem;
     }
-    footer {
-      text-align: center;
-      padding: 0.75rem;
-      font-size: 0.9rem;
-      color: #555;
+    .pdf-frame {
+      width: 85%;
+      max-width: 900px;
+      aspect-ratio: 8.5 / 11;
+      border: none;
+      box-shadow: 0 0 24px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .download {
+      margin: 1rem 0 2rem;
+      font-weight: 500;
+      color: #003366;
+      text-decoration: none;
+    }
+    .download:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <header>Caden Roberts – Resume</header>
-  <main>
-    <embed src="caden_resume.pdf" type="application/pdf">
-  </main>
-  <footer>
-    <a href="caden_resume.pdf" download>⬇️ Download PDF</a>
-  </footer>
+  <h1>Caden Roberts – Resume</h1>
+  <iframe class="pdf-frame" src="caden_resume.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+  <a class="download" href="caden_resume.pdf" download>⬇️ Download PDF</a>
 </body>
 </html>
