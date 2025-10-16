@@ -3,9 +3,52 @@
 <head>
   <meta charset="utf-8">
   <title>Caden Roberts – Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: system-ui, sans-serif;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      text-align: center;
+      padding: 1rem;
+      background: #002f6c;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    embed {
+      width: 90%;
+      height: 90vh;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: white;
+    }
+    footer {
+      text-align: center;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
 </head>
-<body style="font-family:sans-serif;text-align:center;margin-top:10%;">
-  <h1>Caden Roberts</h1>
-  <p><a href="caden_resume.pdf">Download Resume (PDF)</a></p>
+<body>
+  <header>Caden Roberts – Resume</header>
+  <main>
+    <embed src="caden_resume.pdf" type="application/pdf">
+  </main>
+  <footer>
+    <a href="caden_resume.pdf" download>⬇️ Download PDF</a>
+  </footer>
 </body>
 </html>
