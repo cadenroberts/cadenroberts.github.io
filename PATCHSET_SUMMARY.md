@@ -34,3 +34,37 @@ cadenroberts.github.io/
 - No architecture documentation
 - No demo/evaluation scripts
 - Functional static site with two HTML viewers and two PDF documents
+
+---
+
+## VERIFICATION
+
+**Command:** `./scripts/demo.sh`
+
+**Output:**
+```
+=== cadenroberts.github.io Demo ===
+
+[1/4] Checking file presence...
+✓ index.html found
+✓ transcript.html found
+✓ resume.pdf found
+✓ transcript.pdf found
+
+[2/4] Validating PDF integrity...
+✓ resume.pdf is valid PDF
+✓ transcript.pdf is valid PDF
+
+[3/4] Validating HTML structure...
+✓ index.html contains required elements
+✓ transcript.html contains required elements
+
+[4/4] Testing local server...
+✓ Server started on port 8000
+✓ index.html loads successfully
+✓ Server stopped
+
+SMOKE_OK
+```
+
+**Result:** All tests passed. Site is functional.
