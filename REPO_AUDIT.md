@@ -2,12 +2,11 @@
 
 ## 1. Purpose
 
-Static GitHub Pages site hosting personal resume and academic transcript as PDF documents with minimal HTML viewer interfaces.
+Static GitHub Pages site hosting a personal resume as a PDF document with a minimal HTML viewer interface.
 
 ## 2. Entry Points
 
-- **index.html**: Primary landing page with embedded resume.pdf viewer
-- **transcript.html**: Secondary page with embedded transcript.pdf viewer
+- **index.html**: Landing page with embedded resume.pdf viewer
 - **GitHub Pages**: Automatic deployment via github.com/cadenroberts/cadenroberts.github.io
 
 ## 3. Dependency Surface
@@ -39,7 +38,7 @@ User Request (Browser)
     ↓
 GitHub Pages CDN
     ↓
-index.html OR transcript.html
+index.html
     ↓
 <iframe> embed loads PDF
     ↓

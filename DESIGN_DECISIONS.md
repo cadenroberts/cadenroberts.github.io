@@ -7,7 +7,7 @@ Architecture Decision Records (ADR) documenting key design choices.
 ## ADR-001: Use Static HTML Instead of React/Vue Framework
 
 **Context:**
-Need to build a simple personal website to host resume and transcript PDFs with minimal maintenance overhead and maximum reliability.
+Need to build a simple personal website to host a resume PDF with minimal maintenance overhead and maximum reliability.
 
 **Decision:**
 Use pure static HTML + CSS with no JavaScript framework.

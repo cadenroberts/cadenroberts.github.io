@@ -26,15 +26,13 @@ cd cadenroberts.github.io
 ### Step 2: Verify Files
 
 ```bash
-ls -lh *.html *.pdf
+ls -lh index.html resume.pdf
 ```
 
 **Expected Output:**
 ```
 -rw-r--r--  1 user  staff   1.7K  index.html
--rw-r--r--  1 user  staff   1.7K  transcript.html
 -rw-r--r--  1 user  staff   152K  resume.pdf
--rw-r--r--  1 user  staff   3.4M  transcript.pdf
 ```
 
 ### Step 3: Run Automated Demo Script
@@ -47,24 +45,15 @@ ls -lh *.html *.pdf
 ```
 === cadenroberts.github.io Demo ===
 
-[1/4] Checking file presence...
+[1/3] Checking file presence...
 ✓ index.html found
-✓ transcript.html found
 ✓ resume.pdf found
-✓ transcript.pdf found
 
-[2/4] Validating PDF integrity...
+[2/3] Validating PDF integrity...
 ✓ resume.pdf is valid PDF
-✓ transcript.pdf is valid PDF
 
-[3/4] Validating HTML structure...
+[3/3] Validating HTML structure...
 ✓ index.html contains required elements
-✓ transcript.html contains required elements
-
-[4/4] Testing local server...
-✓ Server started on port 8000
-✓ index.html loads successfully
-✓ Server stopped
 
 SMOKE_OK
 ```
@@ -80,16 +69,11 @@ python3 -m http.server 8000
 
 **Open in browser:**
 - Main page: http://localhost:8000/
-- Transcript page: http://localhost:8000/transcript.html
 
 **Verify:**
 1. Resume PDF displays in iframe
 2. "Download Resume" button works
-3. "View Transcript" link navigates to transcript page
-4. Transcript PDF displays in iframe
-5. "Back to Resume" link returns to main page
-6. "Download Transcript" button works
-7. Layout is centered and responsive
+3. Layout is centered and responsive
 
 **Stop server:**
 ```
@@ -120,9 +104,8 @@ https://cadenroberts.github.io/
 **Verify:**
 1. Site loads over HTTPS (padlock icon in address bar)
 2. Resume displays correctly
-3. Navigation to transcript works
-4. Both download buttons function
-5. Footer shows "© 2025 Caden Roberts"
+3. Download button functions
+4. Footer shows correct copyright
 
 ---
 
@@ -132,7 +115,7 @@ https://cadenroberts.github.io/
 
 ```bash
 # Edit HTML (example: update footer year)
-sed -i '' 's/2025/2026/g' index.html transcript.html
+sed -i '' 's/2025/2026/g' index.html
 
 # Review changes
 git diff
@@ -151,7 +134,7 @@ sleep 120
 curl -s https://cadenroberts.github.io/ | grep 2026
 ```
 
-**Expected:** Output includes "© 2026 Caden Roberts"
+**Expected:** Output includes updated copyright year
 
 ### Rollback (if needed)
 
@@ -227,7 +210,7 @@ open https://github.com/cadenroberts/cadenroberts.github.io/actions
 
 **Diagnosis:**
 ```bash
-ls -la *.html *.pdf
+ls -la index.html resume.pdf
 ```
 
 **Fix:** Ensure you're in repository root directory
@@ -238,10 +221,10 @@ ls -la *.html *.pdf
 
 **Diagnosis:**
 ```bash
-file resume.pdf transcript.pdf
+file resume.pdf
 ```
 
-**Fix:** If output is not "PDF document", PDFs are corrupt. Re-download or restore from backup.
+**Fix:** If output is not "PDF document", PDF is corrupt. Re-download or restore from backup.
 
 ---
 
@@ -282,14 +265,14 @@ gh api repos/cadenroberts/cadenroberts.github.io/pages/builds/latest
 
 ---
 
-### Issue: PDFs don't display in browser
+### Issue: PDF doesn't display in browser
 
 **Diagnosis:**
 - Check browser console for errors (F12 → Console tab)
 - Verify file exists: `curl -I http://localhost:8000/resume.pdf`
 
 **Fix:**
-- Ensure PDFs are not corrupted: `file resume.pdf`
+- Ensure PDF is not corrupted: `file resume.pdf`
 - Try different browser (PDF iframe support varies)
 - Use download button to verify PDF is valid
 
@@ -303,7 +286,6 @@ gh api repos/cadenroberts/cadenroberts.github.io/pages/builds/latest
 - File presence
 - PDF integrity
 - HTML basic structure
-- Local server functionality
 
 **What it doesn't test:**
 - Live site deployment
@@ -318,7 +300,6 @@ gh api repos/cadenroberts/cadenroberts.github.io/pages/builds/latest
 **Additional verification:**
 - Live site accessibility
 - Visual rendering in multiple browsers
-- Navigation flow
 - Download functionality
 - Mobile/tablet views
 
@@ -336,7 +317,7 @@ Exit code: 0
 
 **Local browser test:**
 - Resume PDF visible in iframe
-- All buttons/links functional
+- Download button functional
 - Layout centered and responsive
 
 **Live site test:**

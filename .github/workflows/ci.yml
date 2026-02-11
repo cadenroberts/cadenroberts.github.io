@@ -27,12 +27,10 @@ jobs:
           echo "File sizes:"
           ls -lh *.html *.pdf
           
-          # Check that PDFs are not empty
+          # Check that PDF is not empty
           test -s resume.pdf
-          test -s transcript.pdf
           
-          # Check that HTML files are not empty
+          # Check that HTML file is not empty
           test -s index.html
-          test -s transcript.html
           
           echo "All files have non-zero size"

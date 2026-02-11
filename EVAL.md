@@ -4,11 +4,11 @@
 
 The site is correct if:
 
-1. **HTML Validity:** Both HTML files conform to HTML5 specification
-2. **Resource Availability:** All linked resources (PDFs) are present and accessible
+1. **HTML Validity:** index.html conforms to HTML5 specification
+2. **Resource Availability:** resume.pdf is present and accessible
 3. **Navigation Integrity:** All navigation links resolve correctly
 4. **HTTPS Delivery:** Site is served over HTTPS without certificate errors
-5. **PDF Rendering:** PDFs display in modern browsers via iframe
+5. **PDF Rendering:** PDF displays in modern browsers via iframe
 
 ## Measurable Commands
 
@@ -16,15 +16,14 @@ The site is correct if:
 
 **Command:**
 ```bash
-npx html-validate index.html transcript.html
+npx html-validate index.html
 ```
 
 **Expected Output:**
 ```
 ✔ index.html
-✔ transcript.html
 
-2 files validated
+1 file validated
 ```
 
 **Pass Criteria:** Zero errors, zero warnings
@@ -45,9 +44,7 @@ Expected: No errors or warnings
 **Command:**
 ```bash
 test -f index.html && \
-test -f transcript.html && \
 test -f resume.pdf && \
-test -f transcript.pdf && \
 echo "PASS: All files present" || echo "FAIL: Missing files"
 ```
 
@@ -64,20 +61,19 @@ PASS: All files present
 
 **Command:**
 ```bash
-file resume.pdf transcript.pdf
+file resume.pdf
 ```
 
 **Expected Output:**
 ```
 resume.pdf: PDF document, version 1.X
-transcript.pdf: PDF document, version 1.X
 ```
 
-**Pass Criteria:** Both files identified as valid PDF documents
+**Pass Criteria:** File identified as valid PDF document
 
 **Alternative (detailed check):**
 ```bash
-pdfinfo resume.pdf && pdfinfo transcript.pdf && echo "PASS"
+pdfinfo resume.pdf && echo "PASS"
 ```
 
 ---
@@ -86,7 +82,7 @@ pdfinfo resume.pdf && pdfinfo transcript.pdf && echo "PASS"
 
 **Command:**
 ```bash
-grep -E 'href="[^"]*"' index.html transcript.html | \
+grep -E 'href="[^"]*"' index.html | \
 grep -v 'http' | \
 sed 's/.*href="\([^"]*\)".*/\1/' | \
 while read link; do
@@ -150,16 +146,15 @@ PASS: Live site accessible
 **Command:**
 ```bash
 curl -s -I https://cadenroberts.github.io/resume.pdf | head -1 | grep -q "200"
-curl -s -I https://cadenroberts.github.io/transcript.pdf | head -1 | grep -q "200"
-echo "PASS: PDFs accessible"
+echo "PASS: PDF accessible"
 ```
 
 **Expected Output:**
 ```
-PASS: PDFs accessible
+PASS: PDF accessible
 ```
 
-**Pass Criteria:** Both PDFs return HTTP 200
+**Pass Criteria:** PDF returns HTTP 200
 
 ---
 
@@ -170,9 +165,7 @@ PASS: PDFs accessible
 | Resource | Size | Target Load Time | Network |
 |----------|------|------------------|---------|
 | index.html | 1.7 KB | < 100ms | Broadband |
-| transcript.html | 1.7 KB | < 100ms | Broadband |
 | resume.pdf | 152 KB | < 500ms | Broadband |
-| transcript.pdf | 3.4 MB | < 2s | Broadband |
 
 ### Performance Measurement
 
@@ -185,14 +178,14 @@ npx lighthouse https://cadenroberts.github.io/ \
   jq '.categories.performance.score * 100'
 ```
 
-**Pass Criteria:** Performance score ≥ 90
+**Pass Criteria:** Performance score >= 90
 
 **Manual Test:**
 1. Open Chrome DevTools (F12)
 2. Navigate to Network tab
 3. Hard reload (Cmd+Shift+R / Ctrl+Shift+R)
 4. Check "DOMContentLoaded" event time (should be < 300ms)
-5. Check "Load" event time (should be < 1s for index, < 4s for transcript)
+5. Check "Load" event time (should be < 1s)
 
 ---
 
@@ -218,25 +211,23 @@ npx lighthouse https://cadenroberts.github.io/ \
 
 - [ ] HTML validates without errors (npx html-validate)
 - [ ] All files present (test -f)
-- [ ] PDFs are valid (file command)
+- [ ] PDF is valid (file command)
 - [ ] Local links resolve (grep + test)
 - [ ] Local server serves pages (python3 -m http.server)
 - [ ] Live site returns HTTP 200
-- [ ] PDFs load on live site
-- [ ] index.html → transcript.html navigation works
-- [ ] transcript.html → index.html navigation works
-- [ ] Download buttons trigger downloads
+- [ ] PDF loads on live site
+- [ ] Download button triggers download
 - [ ] Page layout renders correctly in Chrome
 - [ ] Page layout renders correctly in Firefox
 - [ ] Page layout renders correctly in Safari
-- [ ] PDFs render in iframe on desktop
-- [ ] PDFs render in iframe on mobile
+- [ ] PDF renders in iframe on desktop
+- [ ] PDF renders in iframe on mobile
 
 ### Acceptance Criteria
 
 **Minimum (SMOKE_OK):**
-- HTML files valid
-- PDF files present and valid
+- HTML file valid
+- PDF file present and valid
 - Local server test passes
 
 **Full (DEMO_OK - not achievable without live deployment):**
@@ -256,8 +247,8 @@ After any change, run:
 ./scripts/demo.sh
 
 # Full validation
-npx html-validate index.html transcript.html
-test -f resume.pdf && test -f transcript.pdf && echo "OK"
+npx html-validate index.html
+test -f resume.pdf && echo "OK"
 python3 -m http.server 8000 &
 sleep 2
 curl -s http://localhost:8000/ | grep -q "Caden Roberts" && echo "OK"

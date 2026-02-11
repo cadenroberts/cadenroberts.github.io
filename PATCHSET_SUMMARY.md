@@ -7,16 +7,13 @@
 **Tracked Files:** 7  
 
 **Primary Entry Points:**
-- `index.html` - Main landing page displaying resume PDF
-- `transcript.html` - Secondary page displaying transcript PDF
+- `index.html` - Landing page displaying resume PDF
 
 **Current Structure:**
 ```
 cadenroberts.github.io/
 ├── index.html          # Resume landing page
-├── transcript.html     # Transcript viewer page
 ├── resume.pdf          # Resume document
-├── transcript.pdf      # Transcript document
 ├── sync.sh            # Git commit/push automation
 ├── .gitignore         # Git ignore rules
 └── .env.example       # Environment variable template
@@ -26,14 +23,14 @@ cadenroberts.github.io/
 - Static HTML site hosted on GitHub Pages
 - No build step required
 - Served directly at https://cadenroberts.github.io
-- Both HTML pages embed their respective PDFs via iframe
+- HTML page embeds resume PDF via iframe
 
 **Current State:**
 - Minimal documentation (no README)
 - No CI/CD workflow
 - No architecture documentation
 - No demo/evaluation scripts
-- Functional static site with two HTML viewers and two PDF documents
+- Functional static site with one HTML viewer and one PDF document
 
 ---
 
@@ -45,24 +42,15 @@ cadenroberts.github.io/
 ```
 === cadenroberts.github.io Demo ===
 
-[1/4] Checking file presence...
+[1/3] Checking file presence...
 ✓ index.html found
-✓ transcript.html found
 ✓ resume.pdf found
-✓ transcript.pdf found
 
-[2/4] Validating PDF integrity...
+[2/3] Validating PDF integrity...
 ✓ resume.pdf is valid PDF
-✓ transcript.pdf is valid PDF
 
-[3/4] Validating HTML structure...
+[3/3] Validating HTML structure...
 ✓ index.html contains required elements
-✓ transcript.html contains required elements
-
-[4/4] Testing local server...
-✓ Server started on port 8000
-✓ index.html loads successfully
-✓ Server stopped
 
 SMOKE_OK
 ```
@@ -108,8 +96,7 @@ SMOKE_OK
 
 ## FILES MODIFIED
 
-- `index.html` - Removed emojis from button labels (accessibility)
-- `transcript.html` - Removed emojis from button labels (accessibility)
+- `index.html` - Removed emojis from button labels, removed transcript navigation
 
 ---
 
@@ -118,24 +105,15 @@ SMOKE_OK
 ```
 === cadenroberts.github.io Demo ===
 
-[1/4] Checking file presence...
+[1/3] Checking file presence...
 ✓ index.html found
-✓ transcript.html found
 ✓ resume.pdf found
-✓ transcript.pdf found
 
-[2/4] Validating PDF integrity...
+[2/3] Validating PDF integrity...
 ✓ resume.pdf is valid PDF
-✓ transcript.pdf is valid PDF
 
-[3/4] Validating HTML structure...
+[3/3] Validating HTML structure...
 ✓ index.html contains required elements
-✓ transcript.html contains required elements
-
-[4/4] Testing local server...
-✓ Server started on port 8000
-✓ index.html loads successfully
-✓ Server stopped
 
 SMOKE_OK
 ```

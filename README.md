@@ -1,13 +1,12 @@
 # cadenroberts.github.io
 
-Personal resume and transcript hosting via GitHub Pages.
+Personal resume hosting via GitHub Pages.
 
 ## What It Does
 
-- Serves static HTML pages at https://cadenroberts.github.io
-- Displays resume.pdf in an embedded viewer on the main page
-- Displays transcript.pdf in an embedded viewer on a secondary page
-- Provides download links for both PDF documents
+- Serves a static HTML page at https://cadenroberts.github.io
+- Displays resume.pdf in an embedded viewer
+- Provides a download link for the resume PDF
 - Automatically deploys on push to main branch via GitHub Pages
 
 ## Architecture
@@ -16,23 +15,21 @@ Personal resume and transcript hosting via GitHub Pages.
 ┌──────────────────────────────────────────────────────┐
 │                   GitHub Pages CDN                   │
 │            https://cadenroberts.github.io            │
-└──────────────────────────┬───────────────────────────┘
-                           │
-         ┌─────────────────┴─────────────────┐
-         ▼                                   ▼
-┌───────────────────┐              ┌───────────────────┐
-│   index.html      │              │ transcript.html   │
-│                   │              │                   │
-│  ┌─────────────┐  │              │  ┌─────────────┐  │
-│  │   <iframe>  │  │              │  │   <iframe>  │  │
-│  │             │  │              │  │             │  │
-│  │ resume.pdf  │  │              │  │ transcript  │  │
-│  │             │  │              │  │    .pdf     │  │
-│  └─────────────┘  │              │  └─────────────┘  │
-│                   │              │                   │
-│  [Download]       │◄────────────►│  [Back] [DL]     │
-│  [Transcript]     │              │                   │
-└───────────────────┘              └───────────────────┘
+└──────────────────────────────┬───────────────────────┘
+                               │
+                               ▼
+                    ┌───────────────────┐
+                    │   index.html      │
+                    │                   │
+                    │  ┌─────────────┐  │
+                    │  │   <iframe>  │  │
+                    │  │             │  │
+                    │  │ resume.pdf  │  │
+                    │  │             │  │
+                    │  └─────────────┘  │
+                    │                   │
+                    │  [Download]       │
+                    └───────────────────┘
 ```
 
 **Flow:**
@@ -40,15 +37,10 @@ Personal resume and transcript hosting via GitHub Pages.
 2. GitHub Pages serves index.html
 3. Browser loads and renders HTML/CSS
 4. iframe embeds resume.pdf with native browser PDF viewer
-5. User clicks "View Transcript" → loads transcript.html
-6. transcript.html embeds transcript.pdf via iframe
-7. User clicks "Back to Resume" → returns to index.html
 
 **Components:**
 - **index.html**: Landing page with resume viewer
-- **transcript.html**: Secondary page with transcript viewer
-- **resume.pdf**: Primary document (152 KB)
-- **transcript.pdf**: Academic record (3.4 MB)
+- **resume.pdf**: Resume document
 - **sync.sh**: Git commit/push automation script
 
 **Technology:**
@@ -69,11 +61,6 @@ Personal resume and transcript hosting via GitHub Pages.
 - **Rationale:** Free, HTTPS by default, automatic deployment, high availability
 - **Tradeoff:** Limited to static content, no server-side logic, but sufficient for document hosting
 
-**PDF Embedding via iframe:**
-- **Chosen:** Browser-native iframe PDF rendering
-- **Rationale:** No JavaScript library needed, works across modern browsers
-- **Tradeoff:** Inconsistent rendering across browsers/devices, no fallback for unsupported browsers
-
 **No Build Tooling:**
 - **Chosen:** Direct HTML editing
 - **Rationale:** Simplicity, no toolchain maintenance, no build failures
@@ -83,24 +70,22 @@ Personal resume and transcript hosting via GitHub Pages.
 
 **Correctness Criteria:**
 1. HTML validates against W3C standards
-2. Both PDF files are present and accessible
+2. resume.pdf is present and accessible
 3. All navigation links resolve correctly
 4. Page loads successfully over HTTPS
-5. PDF iframes render in modern browsers
+5. PDF iframe renders in modern browsers
 
 **Performance Expectations:**
 - index.html: < 2 KB, < 100ms load time
-- transcript.html: < 2 KB, < 100ms load time
 - resume.pdf: 152 KB, < 500ms load time
-- transcript.pdf: 3.4 MB, < 2s load time on broadband
 
 **Commands:**
 ```bash
 # Validate HTML
-npx html-validate index.html transcript.html
+npx html-validate index.html
 
 # Check file presence
-test -f resume.pdf && test -f transcript.pdf && echo "PASS" || echo "FAIL"
+test -f resume.pdf && echo "PASS" || echo "FAIL"
 
 # Test local serving
 python3 -m http.server 8000
@@ -129,9 +114,7 @@ cadenroberts.github.io/
 ├── scripts/
 │   └── demo.sh             # Reproducible demo/test script
 ├── index.html               # Main landing page (1.7 KB)
-├── transcript.html          # Transcript viewer (1.7 KB)
-├── resume.pdf               # Resume document (152 KB)
-├── transcript.pdf           # Transcript document (3.4 MB)
+├── resume.pdf               # Resume document
 ├── sync.sh                  # Git automation script
 ├── .gitignore              # Git ignore patterns
 ├── README.md               # This file

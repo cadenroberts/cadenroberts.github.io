@@ -2,7 +2,7 @@
 
 ## System Overview
 
-cadenroberts.github.io is a static website consisting of two HTML pages that embed PDF documents. The site is hosted on GitHub Pages and requires no server-side processing or build step.
+cadenroberts.github.io is a static website consisting of a single HTML page that embeds a PDF resume. The site is hosted on GitHub Pages and requires no server-side processing or build step.
 
 ## Component Diagram
 
@@ -11,11 +11,11 @@ cadenroberts.github.io is a static website consisting of two HTML pages that emb
 │                      GitHub Repository                      │
 │                cadenroberts/cadenroberts.github.io          │
 │                                                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │  index.html  │  │transcript.htm│  │   *.pdf      │     │
-│  │              │  │              │  │   files      │     │
-│  │  (1.7 KB)    │  │  (1.7 KB)    │  │  (3.5 MB)    │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
+│  ┌──────────────┐  ┌──────────────┐                        │
+│  │  index.html  │  │  resume.pdf  │                        │
+│  │              │  │              │                        │
+│  │  (1.7 KB)    │  │              │                        │
+│  └──────────────┘  └──────────────┘                        │
 │                                                              │
 └────────────────────────────────────────────────────────────┘
                             │
@@ -38,7 +38,7 @@ cadenroberts.github.io is a static website consisting of two HTML pages that emb
 │  ┌────────────────────────────────────────────────────┐   │
 │  │           HTML Parser & CSS Engine                  │   │
 │  │                                                      │   │
-│  │  Renders: headers, navigation, footer, iframe       │   │
+│  │  Renders: header, navigation, footer, iframe        │   │
 │  └────────────────────────────────────────────────────┘   │
 │                            │                                │
 │                            │ iframe src attribute           │
@@ -46,7 +46,7 @@ cadenroberts.github.io is a static website consisting of two HTML pages that emb
 │  ┌────────────────────────────────────────────────────┐   │
 │  │          Native PDF Renderer                        │   │
 │  │                                                      │   │
-│  │  Displays: resume.pdf or transcript.pdf             │   │
+│  │  Displays: resume.pdf                               │   │
 │  └────────────────────────────────────────────────────┘   │
 │                                                              │
 └────────────────────────────────────────────────────────────┘
@@ -63,20 +63,14 @@ cadenroberts.github.io is a static website consisting of two HTML pages that emb
 5. **HTML Parse:** Browser parses HTML structure
 6. **CSS Parse:** Browser parses inline `<style>` block
 7. **Layout:** Browser computes layout for flexbox-based structure
-8. **Paint:** Browser renders header, navigation buttons, iframe placeholder, footer
+8. **Paint:** Browser renders header, navigation button, iframe placeholder, footer
 9. **Subresource Load:** Browser initiates fetch for `resume.pdf` (iframe src)
 10. **PDF Render:** Browser's native PDF plugin renders document in iframe
 11. **Complete:** Page is interactive
 
-### Navigation to Transcript
-
-1. **Click Event:** User clicks "View Transcript" button
-2. **Navigation:** Browser navigates to transcript.html
-3. **Repeat Steps 4-11:** Same flow as above, but loading transcript.pdf
-
 ### Download Action
 
-1. **Click Event:** User clicks "Download Resume" or "Download Transcript"
+1. **Click Event:** User clicks "Download Resume"
 2. **Download API:** Browser triggers download via `download` attribute
 3. **File Save:** Browser saves PDF to user's download directory
 
@@ -106,7 +100,6 @@ cadenroberts.github.io is a static website consisting of two HTML pages that emb
 **Expectations:**
 - Files must be UTF-8 encoded (HTML) or binary (PDF)
 - index.html must exist in repository root
-- No build configuration required
 
 **Behavior:**
 - Deployment triggered automatically on push to main
@@ -250,20 +243,12 @@ cadenroberts.github.io is a static website consisting of two HTML pages that emb
 - DOM Content Loaded: 100-300ms
 - Fully Loaded (with resume.pdf): 500-1000ms
 
-**Page Load (transcript.html):**
-- TTFB: 50-200ms
-- DOM Content Loaded: 100-300ms
-- Fully Loaded (with transcript.pdf): 2000-4000ms (larger file)
-
 **Resource Sizes:**
 - index.html: 1.7 KB (compressed)
-- transcript.html: 1.7 KB (compressed)
 - resume.pdf: 152 KB
-- transcript.pdf: 3.4 MB
 
 **Bandwidth:**
-- First visit (index): ~154 KB
-- First visit (transcript): ~3.4 MB
+- First visit: ~154 KB
 - Return visits: Cached, near-zero bandwidth
 
 **Scalability:**
